@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Главное меню</title>
+</head>
+<body>
+<div>
+    <h1>_________ДОБРО ПОЖАЛОВАТЬ В МЕНЮ ЗАДАЧ_________!</h1>
+</div>
+
+<h2>Создайте новую задачу</h2>
+
+<form th:action="@{/TaskController/addTask}" th:object="${newTask}" method="post">
+
+        <td>Выберите приоритет:</td>
+
+            <select th:field="${newTask.priority}">
+        <option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}">
+        </option>
+    </select>
+
+    <br />
+
+    Описание:
+    <label>
+        <td><input type="text" th:field="${newTask.description}" th:value="${newTask.description}" /></td>
+    </label>
+    <br />
+    Исполнитель:
+    <label>
+        <td><input type="text" th:field="${newTask.executor}" th:value="${newTask.executor}" /></td>
+    </label>
+    <br />
+
+
+    <input type="submit" value="Добавить задачу">
+</form>
+
+<h2>Список задач</h2>
+
+<table border="1">
+    <tr>
+        <th>Priority</th>
+        <th>Description</th>
+        <th>Executor</th>
+        <th>Delete</th>
+        <th>Up Priority</th>
+        <th>Down Priority</th>
+
+    </tr>
+
+    <tr th:each="task : ${allTask}">
+        <td th:text="${task.priority}">Priority</td>
+        <td th:text="${task.description}">Description</td>
+        <td th:text="${task.executor}">Executor</td>
+        <td>
+            <a th:href="@{/TaskController/deleteTask/__${task.taskid}__}"><button type="submit">Delete</button></a>
+        </td>
+        <td>
+            <a th:href="@{/TaskController/upPriority/__${task.taskid}__}"><button type="submit">UP</button></a>
+        </td>
+        <td>
+            <a th:href="@{/TaskController/downPriority/__${task.taskid}__}"><button type="submit">DOWN</button></a>
+        </td>
+
+    </tr>
+
+</table>
+</body>
+</html>

@@ -1,0 +1,10 @@
+CREATE DATABASE `ToDoList.2.0`;
+
+USE `ToDoList.2.0`;
+
+create table tasks (
+taskId serial not NULL PRIMARY key,
+priority integer,
+description character varying,
+executor  character varying
+);
