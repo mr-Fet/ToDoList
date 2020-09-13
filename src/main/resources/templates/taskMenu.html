@@ -16,13 +16,10 @@
 
 <form th:action="@{/TaskController/addTask}" th:object="${newTask}" method="post">
 
-        <td>Выберите приоритет:</td>
-
-            <select th:field="${newTask.priority}">
-        <option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}">
-        </option>
-    </select>
-
+    Приоритет:
+    <label>
+        <td><input type="text" th:field="${newTask.priority}" th:value="${newTask.priority}" /></td>
+    </label>
     <br />
 
     Описание:
@@ -44,6 +41,7 @@
 
 <table border="1">
     <tr>
+        <th>Task ID</th>
         <th>Priority</th>
         <th>Description</th>
         <th>Executor</th>
@@ -54,6 +52,7 @@
     </tr>
 
     <tr th:each="task : ${allTask}">
+        <td th:text="${task.taskid}">taskId</td>
         <td th:text="${task.priority}">Priority</td>
         <td th:text="${task.description}">Description</td>
         <td th:text="${task.executor}">Executor</td>
