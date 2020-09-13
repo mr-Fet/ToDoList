@@ -31,8 +31,14 @@ public class TaskController {
     @RequestMapping(value="/addTask", method= RequestMethod.POST)
     public ResponseEntity addTask(@ModelAttribute Task task){
 
-            taskService.addTask(task);
+        if(task.getDescription().equals("")||
+                task.getExecutor().equals("")){
+            return ResponseEntity.ok("Необходимо заполниь все поля");
 
+        }
+        else {
+            taskService.addTask(task);
+        }
 
         return  ResponseEntity.ok("Задача с приоритетом " + task.getPriority() + "<br>"
                 + " описанием " + task.getDescription() + "<br>"
